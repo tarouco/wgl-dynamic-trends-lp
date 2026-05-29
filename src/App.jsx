@@ -8,6 +8,9 @@ import { detectCategory, parseCityAndTrend, getTrendUrl } from './utils/themeEng
 
 // Parse Netlify-pinned trend if baked in at build time
 const getPinnedTrend = () => {
+  if (typeof window !== 'undefined' && window.VITE_ACTIVE_TREND) {
+    return window.VITE_ACTIVE_TREND;
+  }
   const pinnedJson = import.meta.env.VITE_ACTIVE_TREND;
   if (pinnedJson && pinnedJson !== 'undefined' && pinnedJson !== 'null') {
     try {
