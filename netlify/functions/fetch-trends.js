@@ -1,6 +1,4 @@
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-
-exports.handler = async function (event, context) {
+export const handler = async function (event, context) {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -14,11 +12,11 @@ exports.handler = async function (event, context) {
 
   try {
     // Google Trends daily RSS feed for Brazil
-    const response = await fetch('https://trends.google.com/trends/trendingsearches/daily/rss?geo=BR', {
+    const response = await fetch('https://trends.google.com/trending/rss?geo=BR', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
       },
-      timeout: 8000
+      signal: AbortSignal.timeout(8000)
     });
 
     if (!response.ok) {
