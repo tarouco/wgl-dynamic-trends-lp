@@ -190,21 +190,28 @@ export default function Dashboard({
                         {catLabel}
                       </span>
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '6px', fontSize: '11px' }}>
-                      <span style={{ fontFamily: 'monospace', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '280px' }}>
-                        {getTrendUrl(trend.title)}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', marginTop: '8px', fontSize: '11px' }}>
+                      <span style={{ color: 'var(--text-muted)', fontWeight: 500 }}>
+                        URL de Deploy:
                       </span>
-                      {isActive && (
-                        <a 
-                          href={getTrendUrl(trend.title)} 
-                          onClick={(e) => e.stopPropagation()} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          style={{ color: '#22d3ee', textDecoration: 'underline', width: 'fit-content' }}
-                        >
-                          Abrir página da cidade ↗
-                        </a>
-                      )}
+                      <a 
+                        href={getTrendUrl(trend.title)} 
+                        onClick={(e) => e.stopPropagation()} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        style={{ 
+                          color: '#22d3ee', 
+                          textDecoration: 'underline', 
+                          fontFamily: 'monospace', 
+                          overflow: 'hidden', 
+                          textOverflow: 'ellipsis', 
+                          whiteSpace: 'nowrap', 
+                          maxWidth: '280px',
+                          display: 'block'
+                        }}
+                      >
+                        {`${typeof window !== 'undefined' ? window.location.origin : ''}${getTrendUrl(trend.title)}`} ↗
+                      </a>
                     </div>
                   </div>
                   {trend.picture && (
