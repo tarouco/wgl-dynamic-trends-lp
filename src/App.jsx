@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Monitor, Smartphone, BookOpen, Layout, Wifi, WifiOff } from 'lucide-react';
+import { Monitor, Smartphone, BookOpen, Layout, Wifi, WifiOff, Settings, ArrowLeft } from 'lucide-react';
 import Dashboard from './components/Dashboard';
 import PreviewLP from './components/PreviewLP';
 import Integration from './components/Integration';
@@ -7,23 +7,30 @@ import { mockTrends } from './utils/mockData';
 import { detectCategory } from './utils/themeEngine';
 
 export default function App() {
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [activeTab, setActiveTab] = useState('preview'); // 'preview' | 'integration'
-  const [device, setDevice] = useState('desktop'); // 'desktop' | 'mobile'
+  const [device, setDevice] = useState('desktop'); // 'desktop' | 'mobile' (for admin preview)
   const [trends, setTrends] = useState([]);
   const [selectedTrend, setSelectedTrend] = useState(null);
   const [loading, setLoading] = useState(false);
   const [lastSync, setLastSync] = useState(null);
   const [isLive, setIsLive] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  // Monitor window resize for full-screen responsive view
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const fetchTrendsData = async () => {
     setLoading(true);
     try {
-      // Netlify function path
       const res = await fetch('/api/fetch-trends');
       const json = await res.json();
       
       if (json.success && json.data && json.data.length > 0) {
-        // Auto detect category for each trend based on keywords
         const processed = json.data.map(item => ({
           ...item,
           category: detectCategory(item.title, item.news?.title || '')
@@ -33,11 +40,10 @@ export default function App() {
         setIsLive(true);
         setLastSync(new Date());
       } else {
-        throw new Error("Invalid response structure or empty trends list");
+        throw new Error("Invalid response");
       }
     } catch (err) {
-      console.warn("API trends fetch failed. Using premium mockData fallback. Error:", err.message);
-      // Process mock data categories just in case
+      console.warn("Using mockData fallback. Error:", err.message);
       const processedMock = mockTrends.map(item => ({
         ...item,
         category: item.category || detectCategory(item.title, item.news?.title || '')
@@ -55,6 +61,21 @@ export default function App() {
     fetchTrendsData();
   }, []);
 
+  // Basic routing handler
+  const navigateTo = (path) => {
+    window.history.pushState({}, '', path);
+    setCurrentPath(path);
+  };
+
+  // Listen to browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   const handleSelectTrend = (trend) => {
     setSelectedTrend(trend);
   };
@@ -65,12 +86,83 @@ export default function App() {
       category: newCategory
     }));
     
-    // Update category in main list
     setTrends(prevList => prevList.map(t => 
       t.title === selectedTrend.title ? { ...t, category: newCategory } : t
     ));
   };
 
+  // --- RENDER VIEW 1: Live Public Landing Page (Full Screen) ---
+  if (currentPath !== '/admin') {
+    if (loading && !selectedTrend) {
+      return (
+        <div style={{
+          display: 'flex',
+          height: '100vh',
+          backgroundColor: '#0b0f19',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          gap: '15px',
+          fontFamily: "'Outfit', sans-serif",
+          color: 'white'
+        }}>
+          <div className="spin" style={{
+            width: '40px',
+            height: '40px',
+            border: '4px solid rgba(255,255,255,0.1)',
+            borderTopColor: '#005c8a',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite'
+          }}></div>
+          <span>Carregando Gerador Solar WEG...</span>
+        </div>
+      );
+    }
+
+    // Default to first selected trend in list
+    const activeTrend = selectedTrend || trends[0] || mockTrends[0];
+    const isMobileDevice = windowWidth < 768;
+
+    return (
+      <div className="animate-fade">
+        {/* Floating link to admin for demo purposes */}
+        <div style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          zIndex: 1000,
+          opacity: 0.8
+        }}>
+          <button
+            onClick={() => navigateTo('/admin')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              backgroundColor: 'rgba(15, 23, 42, 0.9)',
+              color: 'white',
+              border: '1px solid rgba(255,255,255,0.15)',
+              padding: '10px 16px',
+              borderRadius: '30px',
+              fontSize: '12px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+              backdropFilter: 'blur(8px)'
+            }}
+          >
+            <Settings size={14} />
+            Painel Admin
+          </button>
+        </div>
+        
+        {/* Render full screen public landing page */}
+        <PreviewLP trend={activeTrend} device={isMobileDevice ? 'mobile' : 'desktop'} />
+      </div>
+    );
+  }
+
+  // --- RENDER VIEW 2: Administrator Split-screen Dashboard ---
   return (
     <div className="app-container">
       {/* Header */}
@@ -83,11 +175,32 @@ export default function App() {
           />
           <span className="badge-weg">Distribuidor WEG</span>
           <span style={{ fontSize: '14px', color: 'var(--text-secondary)', fontWeight: 500 }}>
-            • Trends LP Engine
+            • Painel Administrativo
           </span>
         </div>
 
         <div className="header-status">
+          <button
+            onClick={() => navigateTo('/')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              background: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              color: 'white',
+              padding: '6px 14px',
+              borderRadius: '8px',
+              fontSize: '12px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.2s'
+            }}
+          >
+            <ArrowLeft size={12} />
+            Ver Site Público
+          </button>
+          
           <div className="status-indicator">
             {isLive ? (
               <>
@@ -100,10 +213,6 @@ export default function App() {
                 <span style={{ color: '#fbbf24' }}>Simulador Local Activo</span>
               </>
             )}
-          </div>
-          <div className="status-indicator">
-            <span className="dot-green"></span>
-            <span>Netlify Sync: OK</span>
           </div>
         </div>
       </header>
