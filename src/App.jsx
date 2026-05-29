@@ -169,9 +169,12 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Update selected trend if path changes
+  // Update selected trend if path changes (ignoring non-trend paths like /admin)
   useEffect(() => {
-    setSelectedTrend(getTrendFromPath(currentPath));
+    const active = getTrendFromPath(currentPath);
+    if (active) {
+      setSelectedTrend(active);
+    }
   }, [currentPath]);
 
   // Redirect root page to localized slug if the active trend is city-related
