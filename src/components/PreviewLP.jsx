@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { 
   ShieldAlert, Sun, Award, TrendingDown, DollarSign, Home, 
   Zap, Cpu, Smartphone, Shield, Leaf, Wrench, Phone, 
-  Mail, MapPin, Calculator, Send, MessageSquare, Info
+  Mail, MapPin, Calculator, Send, MessageSquare, Info,
+  CheckCircle
 } from 'lucide-react';
 import { getThemeConfig, getHeroImage } from '../utils/themeEngine';
 import { generateCopy } from '../utils/copyTemplates';
@@ -79,24 +80,24 @@ export default function PreviewLP({ trend, device }) {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: device === 'mobile' ? '12px 15px' : '15px 40px',
-        backgroundColor: '#ffffff',
-        borderBottom: '1px solid #e2e8f0',
+        backgroundColor: '#0b0f19',
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
         position: 'sticky',
         top: 0,
         zIndex: 50
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <img 
-            src="https://wgenergia.com.br/wp-content/uploads/2026/02/logo-wg-energia-512w.avif" 
-            alt="WG Energia Logo" 
+            src="https://grupowgl.com.br/wp-content/uploads/2026/03/logo-wgl-branco.svg" 
+            alt="Grupo WGL Logo" 
             style={{ height: device === 'mobile' ? '24px' : '32px' }}
           />
           {device !== 'mobile' && (
             <span style={{
               fontSize: '11px',
-              backgroundColor: '#f1f5f9',
-              color: '#475569',
-              border: '1px solid #cbd5e1',
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              color: '#94a3b8',
+              border: '1px solid rgba(255,255,255,0.15)',
               padding: '2px 8px',
               borderRadius: '20px',
               fontWeight: 600,
@@ -376,7 +377,7 @@ export default function PreviewLP({ trend, device }) {
               display: 'inline-block',
               marginBottom: '12px'
             }}>
-              SIMULADOR DE ECONOMIA WG
+              SIMULADOR DE ECONOMIA WGL
             </span>
             <h2 style={{ fontSize: '28px', fontWeight: 800, marginBottom: '15px' }}>
               Calcule seu Gerador Solar WEG
@@ -556,7 +557,7 @@ export default function PreviewLP({ trend, device }) {
           textAlign: 'center'
         }}>
           <h2 style={{ fontSize: '26px', fontWeight: 800, color: '#0f172a', marginBottom: '10px' }}>
-            Fale com um Especialista WG
+            Fale com um Especialista WGL
           </h2>
           <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '30px' }}>
             Preencha os dados abaixo. Nossa equipe especializada em dimensionamento WEG entrará em contato em menos de 1 hora comercial.
@@ -675,7 +676,7 @@ export default function PreviewLP({ trend, device }) {
       }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '15px' }}>
           <p>
-            © {new Date().getFullYear()} WG Energia. Todos os direitos reservados. Distribuidor Autorizado WEG.
+            © {new Date().getFullYear()} Grupo WGL. Todos os direitos reservados. Distribuidor Autorizado WEG.
           </p>
           <p style={{ color: '#475569' }}>
             Hospedado sob o domínio oficial do projeto: <strong style={{ color: '#94a3b8' }}>geradoresenergiawgl.com.br</strong> • Origem da análise: Google Trends geo=BR a cada 30 minutos.

@@ -1,4 +1,4 @@
-// Copywriting Generator for WG Energia Dynamic Landing Page
+// Copywriting Generator for Grupo WGL Dynamic Landing Page
 // Dynamically creates headlines, body text, features, products and FAQ tailored to trends.
 
 export const generateCopy = (keyword, category, newsSnippet = "") => {
@@ -9,7 +9,7 @@ export const generateCopy = (keyword, category, newsSnippet = "") => {
       return {
         badge: "ALERTA DE SEGURANÇA ENERGÉTICA",
         heroTitle: `Sem energia por causa de "${cleanKeyword}"? Nunca mais.`,
-        heroSub: `O assunto do momento é ${cleanKeyword}, e isso nos lembra o quanto somos dependentes da rede elétrica. WG Energia oferece Geradores Solares e Sistemas de Baterias WEG para manter sua casa ligada, aconteça o que acontecer.`,
+        heroSub: `O assunto do momento é ${cleanKeyword}, e isso nos lembra o quanto somos dependentes da rede elétrica. O Grupo WGL oferece Geradores Solares e Sistemas de Baterias WEG para manter sua casa ligada, aconteça o que acontecer.`,
         ctaText: "Garantir meu Sistema de Backup",
         benefitTitle: "Por que investir em autonomia energética hoje?",
         benefits: [
@@ -54,7 +54,7 @@ export const generateCopy = (keyword, category, newsSnippet = "") => {
           },
           {
             q: "Qual a durabilidade das baterias WEG?",
-            a: "As baterias de Lítio da WEG possuem vida útil projetada para mais de 10 anos de uso diário contínuo, contando com garantia de fábrica e suporte especializado WG Energia."
+            a: "As baterias de Lítio da WEG possuem vida útil projetada para mais de 10 anos de uso diário contínuo, contando com garantia de fábrica e suporte especializado do Grupo WGL."
           }
         ]
       };
@@ -63,7 +63,7 @@ export const generateCopy = (keyword, category, newsSnippet = "") => {
       return {
         badge: "COMBATE À INFLAÇÃO ENERGÉTICA",
         heroTitle: `Reaja à "${cleanKeyword}" economizando até 95% na conta de luz.`,
-        heroSub: `Enquanto o país discute "${cleanKeyword}", a tarifa de energia continua subindo. Proteja seu bolso hoje mesmo com um Gerador Solar WEG dimensionado pela WG Energia. Transforme despesa em investimento.`,
+        heroSub: `Enquanto o país discute "${cleanKeyword}", a tarifa de energia continua subindo. Proteja seu bolso hoje mesmo com um Gerador Solar WEG dimensionado pelo Grupo WGL. Transforme despesa em investimento.`,
         ctaText: "Simular Minha Economia",
         benefitTitle: "Como a Energia Solar protege seu patrimônio?",
         benefits: [
@@ -117,7 +117,7 @@ export const generateCopy = (keyword, category, newsSnippet = "") => {
       return {
         badge: "TECNOLOGIA E INOVAÇÃO ENERGÉTICA",
         heroTitle: `Sua casa conectada ao futuro de "${cleanKeyword}".`,
-        heroSub: `Avanços como "${cleanKeyword}" demandam infraestrutura elétrica de ponta. WG Energia traz carregadores de carros elétricos WEG WEMOB integrados a geradores solares inteligentes. Tecnologia que move você.`,
+        heroSub: `Avanços como "${cleanKeyword}" demandam infraestrutura elétrica de ponta. O Grupo WGL traz carregadores de carros elétricos WEG WEMOB integrados a geradores solares inteligentes. Tecnologia que move você.`,
         ctaText: "Quero Mobilidade Elétrica",
         benefitTitle: "A sinergia perfeita entre Solar e Mobilidade",
         benefits: [
@@ -172,8 +172,8 @@ export const generateCopy = (keyword, category, newsSnippet = "") => {
       return {
         badge: "ENERGIA PARA O SEU DIA A DIA",
         heroTitle: `Energia ininterrupta para curtir "${cleanKeyword}" sem preocupações.`,
-        heroSub: `Aproveite as novidades sobre "${cleanKeyword}" com a tranquilidade que apenas a maior marca de engenharia elétrica do Brasil pode dar. WG Energia entrega geradores solares WEG para sua residência ou negócio.`,
-        ctaText: "Falar com Especialista WG",
+        heroSub: `Aproveite as novidades sobre "${cleanKeyword}" com a tranquilidade que apenas a maior marca de engenharia elétrica do Brasil pode dar. O Grupo WGL entrega geradores solares WEG para sua residência ou negócio.`,
+        ctaText: "Falar com Especialista WGL",
         benefitTitle: "Conforto e sustentabilidade para você",
         benefits: [
           {
@@ -188,7 +188,7 @@ export const generateCopy = (keyword, category, newsSnippet = "") => {
           },
           {
             title: "Instalação Premium",
-            desc: "Equipe técnica WG certificada que cuida de tudo: desde o projeto até a homologação final.",
+            desc: "Equipe técnica WGL certificada que cuida de tudo: desde o projeto até a homologação final.",
             icon: "Wrench"
           }
         ],
@@ -208,8 +208,8 @@ export const generateCopy = (keyword, category, newsSnippet = "") => {
         faqTitle: "Perguntas Frequentes sobre Energia Solar:",
         faqs: [
           {
-            q: "A WG Energia realiza a instalação em todo o Brasil?",
-            a: "Como distribuidor autorizado WEG, a WG Energia atende e fornece equipamentos para integradores parceiros credenciados em todas as regiões do Brasil, garantindo engenharia qualificada local."
+            q: "O Grupo WGL realiza a instalação em todo o Brasil?",
+            a: "Como distribuidor autorizado WEG, o Grupo WGL atende e fornece equipamentos para integradores parceiros credenciados em todas as regiões do Brasil, garantindo engenharia qualificada local."
           },
           {
             q: "Como funciona a manutenção do gerador solar?",
@@ -244,7 +244,7 @@ export const getLucideIconName = (iconKey) => {
 export const generateMarketingHooks = (keyword) => {
   return [
     `Com o avanço de "${keyword}", a demanda por eletricidade dispara. Garanta sua autonomia.`,
-    `Enquanto todos falam sobre "${keyword}", os clientes WG Energia estão economizando na conta de luz.`,
+    `Enquanto todos falam sobre "${keyword}", os clientes do Grupo WGL estão economizando na conta de luz.`,
     `A estabilidade energética que você precisa para acompanhar "${keyword}" sem apagões.`
   ];
 };

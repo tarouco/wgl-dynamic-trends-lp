@@ -281,8 +281,8 @@ export default function App() {
       <header className="dashboard-header glass-panel" style={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}>
         <div className="logo-container">
           <img 
-            src="https://wgenergia.com.br/wp-content/uploads/2026/02/logo-wg-energia-512w.avif" 
-            alt="WG Energia" 
+            src="https://grupowgl.com.br/wp-content/uploads/2026/03/logo-wgl-branco.svg" 
+            alt="Grupo WGL" 
             className="logo-img" 
           />
           <span className="badge-weg">Distribuidor WEG</span>
