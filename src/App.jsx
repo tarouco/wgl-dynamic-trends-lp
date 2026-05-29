@@ -4,7 +4,7 @@ import Dashboard from './components/Dashboard';
 import PreviewLP from './components/PreviewLP';
 import Integration from './components/Integration';
 import { mockTrends } from './utils/mockData';
-import { detectCategory } from './utils/themeEngine';
+import { detectCategory, parseCityAndTrend, getTrendUrl } from './utils/themeEngine';
 
 // Parse Netlify-pinned trend if baked in at build time
 const getPinnedTrend = () => {
@@ -21,10 +21,35 @@ const getPinnedTrend = () => {
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  
+  // Helper to resolve active trend from path
+  const getTrendFromPath = (path) => {
+    const urlData = parseCityAndTrend(path);
+    if (urlData) {
+      if (urlData.isLocal) {
+        return {
+          title: `${urlData.trendTitle} em ${urlData.cityName}`,
+          category: detectCategory(urlData.trendSlug),
+          traffic: "Busca Localizada",
+          city: urlData.cityName,
+          isLocal: true
+        };
+      } else {
+        return {
+          title: urlData.trendTitle,
+          category: detectCategory(urlData.trendSlug),
+          traffic: "Busca Geral",
+          isLocal: false
+        };
+      }
+    }
+    return getPinnedTrend();
+  };
+
   const [activeTab, setActiveTab] = useState('preview'); // 'preview' | 'integration'
   const [device, setDevice] = useState('desktop'); // 'desktop' | 'mobile' (for admin preview)
   const [trends, setTrends] = useState([]);
-  const [selectedTrend, setSelectedTrend] = useState(getPinnedTrend());
+  const [selectedTrend, setSelectedTrend] = useState(getTrendFromPath(window.location.pathname));
   const [loading, setLoading] = useState(false);
   const [lastSync, setLastSync] = useState(null);
   const [isLive, setIsLive] = useState(false);
@@ -52,12 +77,17 @@ export default function App() {
         }));
         setTrends(processed);
         
-        const pinned = getPinnedTrend();
-        if (pinned) {
-          const matched = processed.find(t => t.title === pinned.title);
-          setSelectedTrend(matched || pinned);
+        const active = getTrendFromPath(window.location.pathname);
+        if (active) {
+          setSelectedTrend(active);
         } else {
-          setSelectedTrend(processed[0]);
+          const pinned = getPinnedTrend();
+          if (pinned) {
+            const matched = processed.find(t => t.title === pinned.title);
+            setSelectedTrend(matched || pinned);
+          } else {
+            setSelectedTrend(processed[0]);
+          }
         }
         
         setIsLive(true);
@@ -73,12 +103,17 @@ export default function App() {
       }));
       setTrends(processedMock);
       
-      const pinned = getPinnedTrend();
-      if (pinned) {
-        const matched = processedMock.find(t => t.title === pinned.title);
-        setSelectedTrend(matched || pinned);
+      const active = getTrendFromPath(window.location.pathname);
+      if (active) {
+        setSelectedTrend(active);
       } else {
-        setSelectedTrend(processedMock[0]);
+        const pinned = getPinnedTrend();
+        if (pinned) {
+          const matched = processedMock.find(t => t.title === pinned.title);
+          setSelectedTrend(matched || pinned);
+        } else {
+          setSelectedTrend(processedMock[0]);
+        }
       }
       
       setIsLive(false);
@@ -130,6 +165,25 @@ export default function App() {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  // Update selected trend if path changes
+  useEffect(() => {
+    setSelectedTrend(getTrendFromPath(currentPath));
+  }, [currentPath]);
+
+  // Redirect root page to localized slug if the active trend is city-related
+  useEffect(() => {
+    if (currentPath === '/') {
+      const active = getTrendFromPath('/');
+      if (active && active.city) {
+        const targetUrl = getTrendUrl(active.title);
+        if (targetUrl && targetUrl !== '/') {
+          window.history.replaceState({}, '', targetUrl);
+          setCurrentPath(targetUrl);
+        }
+      }
+    }
+  }, [currentPath]);
 
   const handleSelectTrend = (trend) => {
     setSelectedTrend(trend);

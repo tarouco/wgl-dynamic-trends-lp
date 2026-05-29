@@ -167,3 +167,121 @@ export const getHeroImage = (keyword, category) => {
       return 'https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=1600&auto=format&fit=crop&q=80'; // Modern premium house illuminated by solar panels
   }
 };
+
+// --- Localized City Routing Utilities ---
+
+const cities = [
+  'Porto Alegre', 'São Paulo', 'Rio de Janeiro', 'Belo Horizonte', 'Curitiba',
+  'Salvador', 'Recife', 'Fortaleza', 'Brasília', 'Manaus', 'Belém', 'Goiânia',
+  'Campinas', 'Florianópolis', 'Vitória', 'São Luís', 'Natal', 'João Pessoa',
+  'Maceió', 'Teresina', 'Campo Grande', 'Cuiabá', 'Aracaju', 'Porto Velho',
+  'Macapá', 'Rio Branco', 'Palmas', 'Boa Vista', 'Londrina', 'Joinville', 'Caxias do Sul'
+];
+
+const stateAbbrs = [
+  'SP', 'RJ', 'RS', 'MG', 'PR', 'BA', 'PE', 'CE', 'DF', 'AM', 'PA', 'GO', 
+  'SC', 'ES', 'MA', 'RN', 'PB', 'AL', 'PI', 'MS', 'MT', 'SE', 'RO', 'AP', 'AC', 'TO', 'RR'
+];
+
+export const detectCityFromTitle = (title) => {
+  if (!title) return null;
+  const t = title.toLowerCase();
+  
+  // Check exact city names
+  for (const city of cities) {
+    if (t.includes(city.toLowerCase())) {
+      return city;
+    }
+  }
+  
+  // Check state abbreviations with boundaries (e.g. "em SP", "de RS")
+  for (const state of stateAbbrs) {
+    const regex = new RegExp(`\\b(em|no|na|do|da|de|pro|para)\\s+${state}\\b`, 'i');
+    if (regex.test(title)) {
+      return state;
+    }
+  }
+  
+  return null;
+};
+
+export const slugify = (text) => {
+  if (!text) return '';
+  return text
+    .toString()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // remove accents
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/--+/g, '-')
+    .trim();
+};
+
+export const getTrendUrl = (title) => {
+  if (!title) return '/';
+  const city = detectCityFromTitle(title);
+  
+  // Clean the title by removing "em Cidade/Estado" to avoid redundancy
+  const cleanTitle = title
+    .replace(/\b(em|no|na|do|da|de|pro|para)\s+(Porto Alegre|São Paulo|Rio de Janeiro|Belo Horizonte|Curitiba|Salvador|Recife|Fortaleza|Brasília|Londrina|Joinville|Caxias do Sul|SP|RJ|RS|MG|PR|BA|PE|CE|DF|AM|PA|GO|SC|ES|MA|RN|PB|AL|PI|MS|MT|SE|RO|AP|AC|TO|RR)\b/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+    
+  const trendSlug = slugify(cleanTitle || title);
+  
+  if (city) {
+    const citySlug = slugify(city);
+    return `/${citySlug}/${trendSlug}`;
+  }
+  
+  return `/${trendSlug}`;
+};
+
+export const parseCityAndTrend = (pathname) => {
+  const parts = pathname.split('/').filter(Boolean);
+  if (parts.length === 0) return null;
+  
+  const first = parts[0];
+  // Ignore admin and api routes
+  if (first === 'admin' || first === 'api') return null;
+  
+  if (parts.length >= 2) {
+    const citySlug = parts[0];
+    const trendSlug = parts[1];
+    
+    const cityName = citySlug
+      .split('-')
+      .map(word => {
+        if (stateAbbrs.includes(word.toUpperCase())) return word.toUpperCase();
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      })
+      .join(' ');
+      
+    const trendTitle = trendSlug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+
+    return {
+      cityName,
+      trendTitle,
+      citySlug,
+      trendSlug,
+      isLocal: true
+    };
+  } else if (parts.length === 1) {
+    const trendSlug = parts[0];
+    const trendTitle = trendSlug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+      
+    return {
+      trendTitle,
+      trendSlug,
+      isLocal: false
+    };
+  }
+  return null;
+};

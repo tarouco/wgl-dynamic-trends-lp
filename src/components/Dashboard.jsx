@@ -3,7 +3,7 @@ import {
   Zap, CloudRain, TrendingUp, Globe, Clock, RefreshCw, 
   ChevronRight, AlertTriangle, CheckCircle, Sliders 
 } from 'lucide-react';
-import { detectCategory, getCategoryLabel } from '../utils/themeEngine';
+import { detectCategory, getCategoryLabel, getTrendUrl } from '../utils/themeEngine';
 
 export default function Dashboard({ 
   trends, 
@@ -189,6 +189,22 @@ export default function Dashboard({
                       <span className={`trend-cat-tag tag-${trend.category}`}>
                         {catLabel}
                       </span>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '6px', fontSize: '11px' }}>
+                      <span style={{ fontFamily: 'monospace', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '280px' }}>
+                        {getTrendUrl(trend.title)}
+                      </span>
+                      {isActive && (
+                        <a 
+                          href={getTrendUrl(trend.title)} 
+                          onClick={(e) => e.stopPropagation()} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          style={{ color: '#22d3ee', textDecoration: 'underline', width: 'fit-content' }}
+                        >
+                          Abrir página da cidade ↗
+                        </a>
+                      )}
                     </div>
                   </div>
                   {trend.picture && (
