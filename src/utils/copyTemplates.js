@@ -1,168 +1,175 @@
-// Copywriting Generator for Grupo WGL Dynamic Landing Page
-// Dynamically creates headlines, body text, features, products and FAQ tailored to trends.
+// Copywriting Generator for Grupo WGL Dynamic Landing Pages
+// Seeded from grupowgl.com.br - maps trends to WGL divisions:
+// - weather -> WGL Energia (Diesel Generator Leasing / Contingency)
+// - economy -> WGL Soluções (Cabins, Substations, Cost Savings, Free Energy Market)
+// - tech -> WGL Soluções by RAC (Critical Infrastructure, Termography, Data Centers)
+// - general -> WGL Agro by H2O (Irrigation, Rural Solar, Pomps & Valley Pivot Tech)
 
 export const generateCopy = (keyword, category, newsSnippet = "") => {
-  const cleanKeyword = keyword || "Energia Inteligente";
+  const cleanKeyword = keyword || "Operações Ininterruptas";
   
   switch (category) {
     case "weather":
       return {
-        badge: "ALERTA DE SEGURANÇA ENERGÉTICA",
-        heroTitle: `Sem energia por causa de "${cleanKeyword}"? Nunca mais.`,
-        heroSub: `O assunto do momento é ${cleanKeyword}, e isso nos lembra o quanto somos dependentes da rede elétrica. O Grupo WGL oferece Geradores Solares e Sistemas de Baterias WEG para manter sua casa ligada, aconteça o que acontecer.`,
-        ctaText: "Garantir meu Sistema de Backup",
-        benefitTitle: "Por que investir em autonomia energética hoje?",
+        division: "WGL Energia",
+        badge: "CONTINGÊNCIA E SEGURANÇA OPERACIONAL",
+        heroTitle: `Sua operação não pode parar por conta de "${cleanKeyword}"`,
+        heroSub: `Apagões e oscilações na rede elétrica decorrentes de "${cleanKeyword}" colocam a segurança e a produtividade de empresas em risco. O Grupo WGL oferece soluções completas de locação de geradores de energia (30 a 2500 kVA) com suporte técnico 24/7 e SLA de resposta em até 3 horas.`,
+        ctaText: "Cotar Gerador de Emergência",
+        benefitTitle: "Por que alugar geradores com o Grupo WGL?",
         benefits: [
           {
-            title: "Energia Ininterrupta",
-            desc: "Transição automática para baterias WEG quando a rede da concessionária cair.",
+            title: "Atendimento Técnico 24/7",
+            desc: "Equipe técnica disponível a qualquer hora do dia ou da noite para garantir energia contínua em operações críticas.",
             icon: "ShieldAlert"
           },
           {
-            title: "Geração Própria",
-            desc: "Produza sua própria eletricidade através do Sol e armazene para uso noturno ou emergências.",
-            icon: "Sun"
+            title: "SLA de Resposta Rápida",
+            desc: "SLA contratual de resposta técnica em até 3 horas em caso de falhas, minimizando prejuízos operacionais.",
+            icon: "Zap"
           },
           {
-            title: "Garantia Integral WEG",
-            desc: "Equipamentos de altíssima durabilidade com suporte e assistência técnica em todo o Brasil.",
+            title: "Frota Própria e Moderna",
+            desc: "Geradores silenciados de última geração prontos para entrega imediata em mais de 24 estados atendidos.",
             icon: "Award"
           }
         ],
-        productTitle: "Equipamentos recomendados para Autonomia:",
+        productTitle: "Sistemas recomendados para contingência climática:",
         products: [
           {
-            name: "Sistema de Armazenamento WEG ESS",
-            desc: "Baterias de lítio de alta performance integradas para garantir energia contínua durante apagões.",
+            name: "Geradores Diesel Silenciados (30 a 2500 kVA)",
+            desc: "Cabines acústicas super silenciadas de altíssima confiabilidade e baixa emissão, ideais para hospitais, indústrias e shoppings.",
             image: "https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?w=400&auto=format&fit=crop&q=60"
           },
           {
-            name: "Inversor Híbrido WEG",
-            desc: "A inteligência central que gerencia painéis solares, baterias e rede elétrica de forma automática.",
+            name: "Painéis de Transferência Automática (QTA)",
+            desc: "Equipamento inteligente que realiza a transição da rede elétrica para o gerador em poucos segundos assim que detecta a queda.",
             image: "https://images.unsplash.com/photo-1509395062183-67c5ad6faff9?w=400&auto=format&fit=crop&q=60"
           }
         ],
-        faqTitle: "Dúvidas Frequentes sobre Backup Energético:",
+        faqTitle: "Dúvidas Frequentes sobre Locação de Geradores:",
         faqs: [
           {
-            q: "Como o sistema de baterias funciona durante uma tempestade?",
-            a: "Caso ocorra uma queda na rede elétrica devido a tempestades ou ventos fortes, o inversor híbrido WEG isola sua casa da rede em milissegundos e passa a alimentar suas cargas críticas (geladeira, internet, luzes) usando a energia armazenada nas baterias."
+            q: "Como funciona o suporte do Grupo WGL durante apagões?",
+            a: "Nosso time técnico de monitoramento remoto detecta qualquer oscilação ou queda na planta do cliente em até 15 segundos. Caso a transição automática apresente qualquer inconformidade, técnicos certificados são despachados imediatamente sob SLA contratual."
           },
           {
-            q: "Posso recarregar as baterias sem sol?",
-            a: "Sim. O sistema inteligente pode ser programado para carregar as baterias usando a rede da concessionária em horários de tarifa mais barata (fora de ponta) ou através de geradores a combustão auxiliares."
+            q: "Qual o tempo mínimo de locação de um gerador?",
+            a: "Trabalhamos com formatos flexíveis de locações diárias para emergências rápidas ou eventos pontuais, além de planos mensais e contratos de longo prazo com manutenção preventiva e preditiva inclusa."
           },
           {
-            q: "Qual a durabilidade das baterias WEG?",
-            a: "As baterias de Lítio da WEG possuem vida útil projetada para mais de 10 anos de uso diário contínuo, contando com garantia de fábrica e suporte especializado do Grupo WGL."
+            q: "Os geradores são adequados para áreas urbanas ou com limite de ruído?",
+            a: "Sim. Toda a nossa frota dedicada é composta por geradores com carenagem de isolamento acústico de alto padrão (silenciados), respeitando as normas da ABNT e os limites de zoneamento ambiental de ruído."
           }
         ]
       };
 
     case "economy":
       return {
-        badge: "COMBATE À INFLAÇÃO ENERGÉTICA",
-        heroTitle: `Reaja à "${cleanKeyword}" economizando até 95% na conta de luz.`,
-        heroSub: `Enquanto o país discute "${cleanKeyword}", a tarifa de energia continua subindo. Proteja seu bolso hoje mesmo com um Gerador Solar WEG dimensionado pelo Grupo WGL. Transforme despesa em investimento.`,
-        ctaText: "Simular Minha Economia",
-        benefitTitle: "Como a Energia Solar protege seu patrimônio?",
+        division: "WGL Soluções",
+        badge: "ENGENHARIA E EFICIÊNCIA ENERGÉTICA",
+        heroTitle: `Combata os altos custos de energia e "${cleanKeyword}"`,
+        heroSub: `Em tempos de "${cleanKeyword}" e reajustes tarifários severos, a engenharia elétrica inteligente é o caminho para proteger o caixa da sua empresa. O Grupo WGL projeta, instala e realiza a manutenção de subestações de média/alta tensão e assessoria para migração ao Mercado Livre de Energia.`,
+        ctaText: "Solicitar Diagnóstico Tarifário",
+        benefitTitle: "Como a Engenharia WGL gera eficiência financeira?",
         benefits: [
           {
-            title: "Blindagem Tarifária",
-            desc: "Fique imune aos aumentos de bandeira tarifária e reajustes anuais da concessionária.",
+            title: "Migração para o Mercado Livre (ACL)",
+            desc: "Assessoramos sua empresa na compra direta de energia de fontes limpas e baratas, reduzindo custos em até 35%.",
             icon: "TrendingDown"
           },
           {
-            title: "Retorno Rápido (Payback)",
-            desc: "O sistema se paga em média de 3 a 5 anos, gerando lucro líquido e economia imediata por décadas.",
+            title: "Adequação de Demanda Contratada",
+            desc: "Dimensionamento minucioso do contrato de demanda de energia junto à concessionária, eliminando multas.",
             icon: "DollarSign"
           },
           {
-            title: "Valorização do Imóvel",
-            desc: "Imóveis com sistema de energia solar WEG instalado chegam a valorizar até 10% no mercado imobiliário.",
+            title: "Subestações Próprias (Cabines Primárias)",
+            desc: "Projetos em média e alta tensão que viabilizam o consumo com tarifas industriais muito mais econômicas.",
             icon: "Home"
           }
         ],
-        productTitle: "Sistemas recomendados para Economia:",
+        productTitle: "Projetos de engenharia para redução de custos:",
         products: [
           {
-            name: "Gerador Solar Fotovoltaico Residencial",
-            desc: "Módulos monocristalinos de alta eficiência WEG combinados com inversores de alta performance.",
-            image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=400&auto=format&fit=crop&q=60"
+            name: "Retrofit e Manutenção de Subestações",
+            desc: "Modernização de infraestrutura de cabines primárias e painéis antigos para evitar paradas indesejadas e otimizar o fluxo elétrico.",
+            image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400&auto=format&fit=crop&q=60"
           },
           {
-            name: "Gerador Solar Comercial WEG",
-            desc: "Dimensionado para empresas e indústrias reduzirem custos operacionais fixos com energia elétrica.",
-            image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400&auto=format&fit=crop&q=60"
+            name: "Estudo de Viabilidade para o Mercado Livre",
+            desc: "Diagnóstico completo das faturas históricas de energia e modelagem econômica para migração segura de forma 100% assistida.",
+            image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=400&auto=format&fit=crop&q=60"
           }
         ],
-        faqTitle: "Dúvidas Frequentes sobre Economia com Solar:",
+        faqTitle: "Perguntas Frequentes sobre Eficiência Energética:",
         faqs: [
           {
-            q: "Como o sistema gera economia de até 95%?",
-            a: "Toda a energia gerada pelos painéis durante o dia é consumida imediatamente. O excedente é injetado na rede da concessionária, gerando créditos que abatem o consumo noturno. Você paga apenas a taxa mínima de conexão da rede."
+            q: "O que é a migração para o Mercado Livre de Energia?",
+            a: "É a possibilidade de indústrias e comércios de grande porte comprarem energia diretamente de comercializadoras autorizadas, escolhendo o fornecedor e o preço. O Grupo WGL cuida de toda a burocracia técnica e homologação legal."
           },
           {
-            q: "A economia é imediata?",
-            a: "Sim, logo no primeiro mês após a homologação e ligação do sistema pela concessionária local, você já notará a redução drástica no valor da fatura de energia."
+            q: "Por que investir em uma subestação de média tensão própria?",
+            a: "Clientes que consomem em baixa tensão pagam tarifas muito mais caras (Grupo B). A instalação de uma Cabine Primária permite migrar para o Grupo A de faturamento, onde o valor por kWh consumido é substancialmente menor."
           },
           {
-            q: "Como funciona em dias nublados ou chuvosos?",
-            a: "Os painéis solares WEG de última geração ainda geram energia em dias nublados através da radiação difusa, embora em menor escala. O sistema compensa essa variação usando os créditos acumulados em dias ensolarados."
+            q: "Como evitar cobranças por excesso de reativos na fatura?",
+            a: "Instalamos e configuramos bancos de capacitores automáticos dimensionados sob medida. Eles corrigem o fator de potência reativo da sua planta, eliminando essas cobranças indesejadas da concessionária."
           }
         ]
       };
 
     case "tech":
       return {
-        badge: "TECNOLOGIA E INOVAÇÃO ENERGÉTICA",
-        heroTitle: `Sua casa conectada ao futuro de "${cleanKeyword}".`,
-        heroSub: `Avanços como "${cleanKeyword}" demandam infraestrutura elétrica de ponta. O Grupo WGL traz carregadores de carros elétricos WEG WEMOB integrados a geradores solares inteligentes. Tecnologia que move você.`,
-        ctaText: "Quero Mobilidade Elétrica",
-        benefitTitle: "A sinergia perfeita entre Solar e Mobilidade",
+        division: "WGL Soluções by RAC",
+        badge: "INFRAESTRUTURA DE OPERAÇÃO CRÍTICA",
+        heroTitle: `Energia de alta disponibilidade para suportar "${cleanKeyword}"`,
+        heroSub: `A era da automação e "${cleanKeyword}" exige infraestrutura de energia com tolerância zero a falhas. O Grupo WGL, através da WGL Soluções by RAC, entrega comissionamento elétrico de ponta, manutenção e adequação técnica de energia para indústrias e data centers.`,
+        ctaText: "Garantir Alta Disponibilidade",
+        benefitTitle: "Segurança técnica e conformidade regulatória",
         benefits: [
           {
-            title: "Abastecimento 100% Grátis",
-            desc: "Use a energia solar gerada no seu telhado para recarregar as baterias do seu veículo elétrico.",
-            icon: "Zap"
-          },
-          {
-            title: "Recarga Inteligente & Rápida",
-            desc: "Estações de recarga WEG WEMOB com controle por aplicativo, monitoramento de consumo e recarga veloz.",
+            title: "Tolerância Zero a Falhas",
+            desc: "Projetos de redundância ativa e painéis de potência inteligentes para assegurar uptime elétrico estável de 99.99%.",
             icon: "Cpu"
           },
           {
-            title: "Tecnologia WEG Home",
-            desc: "Automação residencial completa integrada para otimizar o uso da energia gerada no imóvel.",
+            title: "Conformidade Legal Avançada",
+            desc: "Laudos técnicos de adequação às normas NR-10, NR-12 e NBR 5410/5419 emitidos por engenheiros seniores.",
+            icon: "Shield"
+          },
+          {
+            title: "Comissionamento Especializado",
+            desc: "Testes de aceitação, ensaios técnicos de equipamentos de grande porte e certificações de conformidade pré-operação.",
             icon: "Smartphone"
           }
         ],
-        productTitle: "Soluções de Tecnologia e Mobilidade:",
+        productTitle: "Soluções de engenharia para TI e Indústria:",
         products: [
           {
-            name: "Estação de Recarga WEG WEMOB",
-            desc: "Design moderno e segurança máxima para carregar seu veículo elétrico na garagem de casa ou condomínio.",
-            image: "https://images.unsplash.com/photo-1563720223185-11003d516935?w=400&auto=format&fit=crop&q=60"
+            name: "Montagem de Cabines de Média e Alta Tensão",
+            desc: "Conexões elétricas robustas de alta segurança com barramentos isolados para suportar picos de demanda sem aquecimento.",
+            image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&auto=format&fit=crop&q=60"
           },
           {
-            name: "Sistema de Monitoramento WEG IoT",
-            desc: "Acompanhe a geração de energia solar e controle seus carregadores em tempo real pelo smartphone.",
-            image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&auto=format&fit=crop&q=60"
+            name: "Manutenção Preventiva Termográfica",
+            desc: "Inspeções por imagem infravermelha em quadros elétricos para identificar anomalias térmicas antes que virem curtos ou incêndios.",
+            image: "https://images.unsplash.com/photo-1563720223185-11003d516935?w=400&auto=format&fit=crop&q=60"
           }
         ],
-        faqTitle: "Dúvidas Frequentes sobre Recarga e Solar:",
+        faqTitle: "Dúvidas sobre Adequação e Engenharia Crítica:",
         faqs: [
           {
-            q: "Qualquer carro elétrico é compatível com os carregadores WEG WEMOB?",
-            a: "Sim, os carregadores WEG utilizam o padrão de conector Tipo 2 (padrão europeu), que é o mais comum no Brasil, sendo compatível com BYD, GWM, Volvo, BMW, Porsche e outros."
+            q: "Qual a importância da adequação à NR-10 e NR-12?",
+            a: "Essas normas regulamentadoras federais são obrigatórias e garantem a integridade física de colaboradores que lidam com instalações elétricas e máquinas. A WGL emite laudos detalhados com as devidas ARTs de adequação."
           },
           {
-            q: "Quantos painéis solares adicionais preciso para recarregar meu carro?",
-            a: "Depende da quilometragem diária. Em média, adicionar de 4 a 6 painéis solares WEG (cerca de 2 kWp) ao seu gerador solar residencial é suficiente para rodar 50 km diários de forma 100% gratuita."
+            q: "Como a WGL assegura a continuidade de energia em data centers?",
+            a: "Instalamos e integramos infraestrutura de redundância ativa (n+1) contendo paralelismo de geradores a diesel WGL Energia, comutadores de ultra-velocidade e manutenção preventiva rigorosa programada."
           },
           {
-            q: "Os carregadores podem ser instalados ao ar livre?",
-            a: "Sim. A linha de carregadores residenciais e comerciais WEG possui proteção IP65 (contra água e poeira) e proteção UV, permitindo a instalação segura em garagens abertas ou estacionamentos descobertos."
+            q: "O que é o laudo de SPDA (Para-raios)?",
+            a: "É o laudo do Sistema de Proteção contra Descargas Atmosféricas, atestando se a planta física está devidamente aterrada e em conformidade com a NBR 5419, protegendo tanto pessoas quanto computadores e servidores de queimas provocadas por raios."
           }
         ]
       };
@@ -170,61 +177,62 @@ export const generateCopy = (keyword, category, newsSnippet = "") => {
     case "general":
     default:
       return {
-        badge: "ENERGIA PARA O SEU DIA A DIA",
-        heroTitle: `Energia ininterrupta para curtir "${cleanKeyword}" sem preocupações.`,
-        heroSub: `Aproveite as novidades sobre "${cleanKeyword}" com a tranquilidade que apenas a maior marca de engenharia elétrica do Brasil pode dar. O Grupo WGL entrega geradores solares WEG para sua residência ou negócio.`,
-        ctaText: "Falar com Especialista WGL",
-        benefitTitle: "Conforto e sustentabilidade para você",
+        division: "WGL Agro",
+        badge: "SOLUÇÕES INTEGRADAS PARA O AGRONEGÓCIO",
+        heroTitle: `Garantia de produtividade no campo mesmo sob "${cleanKeyword}"`,
+        heroSub: `Diante de oscilações provocadas por "${cleanKeyword}" ou desafios de estiagem no campo, o agronegócio moderno exige engenharia integrada de água e energia. O Grupo WGL, por meio da WGL Agro by H2O, desenvolve projetos rurais inteligentes.`,
+        ctaText: "Falar com Engenheiro do Agro",
+        benefitTitle: "Maximizando a produção e reduzindo riscos",
         benefits: [
           {
-            title: "Tranquilidade WEG",
-            desc: "Assistência técnica de fábrica nacional e a marca líder em motores e geradores no país.",
-            icon: "Shield"
-          },
-          {
-            title: "Sustentabilidade Real",
-            desc: "Reduza sua pegada de carbono gerando eletricidade limpa e renovável no seu próprio telhado.",
+            title: "Projetos de Irrigação de Precisão",
+            desc: "Pivôs centrais e irrigação localizada dimensionados para maximizar a área plantada com consumo eficiente de recursos.",
             icon: "Leaf"
           },
           {
-            title: "Instalação Premium",
-            desc: "Equipe técnica WGL certificada que cuida de tudo: desde o projeto até a homologação final.",
+            title: "Energia Solar no Campo",
+            desc: "Fotovoltaica em solo ou flutuante para bombear água e beneficiar grãos com custo operacional zero de eletricidade.",
+            icon: "Sun"
+          },
+          {
+            title: "Automação e Engenharia de Rede",
+            desc: "Revitalização e comissionamento de cabines elétricas rurais para alimentar pivôs de irrigação sem flutuações de tensão.",
             icon: "Wrench"
           }
         ],
-        productTitle: "Nossas Soluções Principais WEG:",
+        productTitle: "Portfólio de engenharia rural e água:",
         products: [
           {
-            name: "Gerador Solar Fotovoltaico WEG",
-            desc: "Portfólio completo de kits fotovoltaicos com inversores residenciais de 3kW a 100kW.",
+            name: "Projetos de Pivôs Centrais Valley®",
+            desc: "Montagem técnica de pivôs Valley®, líderes globais em irrigação e tecnologia, integrados à nossa automação elétrica.",
             image: "https://images.unsplash.com/photo-1509395062183-67c5ad6faff9?w=400&auto=format&fit=crop&q=60"
           },
           {
-            name: "WEG Home Automation & Solar",
-            desc: "Monitore toda a energia da sua casa e automatize eletrodomésticos para economizar ainda mais.",
+            name: "Sistemas de Bombeamento por Energia Solar",
+            desc: "Dimensionamento elétrico de bombas trifásicas alimentadas por painéis solares para irrigação contínua e autônoma.",
             image: "https://images.unsplash.com/photo-1558002038-1055907df827?w=400&auto=format&fit=crop&q=60"
           }
         ],
-        faqTitle: "Perguntas Frequentes sobre Energia Solar:",
+        faqTitle: "Perguntas Frequentes sobre Soluções Rurais:",
         faqs: [
           {
-            q: "O Grupo WGL realiza a instalação em todo o Brasil?",
-            a: "Como distribuidor autorizado WEG, o Grupo WGL atende e fornece equipamentos para integradores parceiros credenciados em todas as regiões do Brasil, garantindo engenharia qualificada local."
+            q: "Como funciona o dimensionamento de um projeto de irrigação WGL Agro?",
+            a: "Avaliamos a outorga de água do cliente, relevo do terreno, tipo de cultura e a potência elétrica necessária. Com esses dados, projetamos a subestação e o pivô ideais para obter o maior rendimento por hectare."
           },
           {
-            q: "Como funciona a manutenção do gerador solar?",
-            a: "A manutenção é baixíssima. Basicamente consiste em lavagens periódicas dos painéis solares (uma ou duas vezes ao ano, dependendo das chuvas) para remover poeira e manter a eficiência máxima."
+            q: "Qual a vantagem de combinar energia solar com bombeamento?",
+            a: "O bombeamento de irrigação é o maior vilão da conta de luz no campo. A energia solar permite bombear água de forma 100% gratuita durante o dia inteiro, amortizando o custo do investimento em poucos anos."
           },
           {
-            q: "Quais são as formas de financiamento disponíveis?",
-            a: "Trabalhamos com diversas linhas de crédito bancário de energia solar (WEG Financiamento, Sicredi, Banco do Brasil, Santander, etc.), que permitem parcelar em até 72x, onde a própria economia na conta paga a parcela."
+            q: "O Grupo WGL realiza manutenções preventivas no campo?",
+            a: "Sim. Como atendemos em mais de 24 estados, possuímos equipes regionais volantes qualificadas que realizam a manutenção elétrica, testes de isolamento e lubrificação estrutural de pivôs centrais de forma ágil."
           }
         ]
       };
   }
 };
+
 export const getLucideIconName = (iconKey) => {
-  // Mapping custom keys to icon names to easily load dynamically in React
   switch (iconKey) {
     case "ShieldAlert": return "ShieldAlert";
     case "Sun": return "Sun";
@@ -241,10 +249,11 @@ export const getLucideIconName = (iconKey) => {
     default: return "Activity";
   }
 };
+
 export const generateMarketingHooks = (keyword) => {
   return [
-    `Com o avanço de "${keyword}", a demanda por eletricidade dispara. Garanta sua autonomia.`,
-    `Enquanto todos falam sobre "${keyword}", os clientes do Grupo WGL estão economizando na conta de luz.`,
-    `A estabilidade energética que você precisa para acompanhar "${keyword}" sem apagões.`
+    `Com a alta demanda provocada por "${keyword}", garantir energia confiável é sobrevivência.`,
+    `Não deixe que "${keyword}" prejudique sua operação. O Grupo WGL assegura continuidade total.`,
+    `Mais do que geradores, a WGL entrega a engenharia e suporte necessários em tempos de "${keyword}".`
   ];
 };
