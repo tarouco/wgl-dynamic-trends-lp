@@ -34,37 +34,76 @@ export const handler = async function (event, context) {
       };
     }
 
-    // 1. Update site environment variable VITE_ACTIVE_TREND via Netlify REST API
-    console.log(`Updating Netlify env var VITE_ACTIVE_TREND to selected trend: ${trend.title}`);
-    
+    // 1. Fetch site details to get the account slug
+    console.log(`Fetching Netlify site details for site ID: ${siteId}`);
     const siteUrl = `https://api.netlify.com/api/v1/sites/${siteId}`;
-    const siteData = await fetch(siteUrl, {
+    const siteRes = await fetch(siteUrl, {
       headers: { 'Authorization': `Bearer ${apiToken}` }
-    }).then(res => res.json());
+    });
+    
+    if (!siteRes.ok) {
+      const errMsg = await siteRes.text();
+      throw new Error(`Failed to fetch Netlify site details: ${errMsg}`);
+    }
+    
+    const siteData = await siteRes.json();
+    const accountSlug = siteData.account_slug;
+    console.log(`Site resolved to Netlify account (team): ${accountSlug}`);
 
-    const currentEnv = siteData.build_settings?.env || {};
-    const updatedEnv = {
-      ...currentEnv,
-      VITE_ACTIVE_TREND: JSON.stringify(trend)
+    // 2. Try to update the environment variable using PUT (new Netlify Env API)
+    console.log(`Updating Netlify env var VITE_ACTIVE_TREND to selected trend: ${trend.title}`);
+    const envPutUrl = `https://api.netlify.com/api/v1/accounts/${accountSlug}/env/VITE_ACTIVE_TREND?site_id=${siteId}`;
+    const putBody = {
+      key: "VITE_ACTIVE_TREND",
+      values: [
+        {
+          value: JSON.stringify(trend),
+          context: "all"
+        }
+      ]
     };
 
-    const updateRes = await fetch(siteUrl, {
-      method: 'PATCH',
+    let updateRes = await fetch(envPutUrl, {
+      method: 'PUT',
       headers: {
         'Authorization': `Bearer ${apiToken}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        build_settings: {
-          env: updatedEnv
-        }
-      })
+      body: JSON.stringify(putBody)
     });
+
+    // 3. Fallback: If PUT returns 404/422/400 (does not exist yet), try POST to create it
+    if (!updateRes.ok && (updateRes.status === 404 || updateRes.status === 422 || updateRes.status === 400)) {
+      console.log(`PUT failed (Status ${updateRes.status}). Trying to create VITE_ACTIVE_TREND via POST...`);
+      const envPostUrl = `https://api.netlify.com/api/v1/accounts/${accountSlug}/env?site_id=${siteId}`;
+      const postBody = [
+        {
+          key: "VITE_ACTIVE_TREND",
+          values: [
+            {
+              value: JSON.stringify(trend),
+              context: "all"
+            }
+          ]
+        }
+      ];
+
+      updateRes = await fetch(envPostUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(postBody)
+      });
+    }
 
     if (!updateRes.ok) {
       const errMsg = await updateRes.text();
-      throw new Error(`Netlify API failed to update env vars: ${errMsg}`);
+      throw new Error(`Netlify API failed to update env vars (new API): ${errMsg}`);
     }
+    
+    console.log("Environment variable VITE_ACTIVE_TREND successfully updated/created!");
 
     // 2. Trigger rebuild via Build Hook
     console.log('Triggering Netlify rebuild via build hook...');
