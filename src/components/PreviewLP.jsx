@@ -4,7 +4,7 @@ import {
   Zap, Cpu, Smartphone, Shield, Leaf, Wrench, Phone, 
   Mail, MapPin, Calculator, Send, MessageSquare, Info
 } from 'lucide-react';
-import { getThemeConfig } from '../utils/themeEngine';
+import { getThemeConfig, getHeroImage } from '../utils/themeEngine';
 import { generateCopy } from '../utils/copyTemplates';
 
 // Dynamic icon loader helper
@@ -132,9 +132,11 @@ export default function PreviewLP({ trend, device }) {
 
       {/* Hero Section */}
       <section style={{
-        background: theme.heroBg,
+        backgroundImage: `linear-gradient(135deg, rgba(11, 15, 25, 0.82) 0%, rgba(11, 15, 25, 0.95) 100%), url(${getHeroImage(trend.title, trend.category)})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         color: '#ffffff',
-        padding: device === 'mobile' ? '40px 20px' : '80px 40px',
+        padding: device === 'mobile' ? '45px 20px' : '90px 40px',
         position: 'relative',
         overflow: 'hidden',
         display: 'flex',

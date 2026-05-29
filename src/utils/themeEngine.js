@@ -132,3 +132,38 @@ export const detectCategory = (keyword, newsTitle = '') => {
   
   return 'general';
 };
+
+export const getHeroImage = (keyword, category) => {
+  const kw = (keyword || '').toLowerCase();
+  
+  // Specific Weather Subcategories
+  if (kw.includes('chuva') || kw.includes('tempestade') || kw.includes('temporal') || kw.includes('vento') || kw.includes('apagão') || kw.includes('sem luz') || kw.includes('queda de energia')) {
+    return 'https://images.unsplash.com/photo-1527482797697-8795b05a13fe?w=1600&auto=format&fit=crop&q=80'; // Dramatic lightning strike/clouds
+  }
+  if (kw.includes('calor') || kw.includes('quente') || kw.includes('temperatura') || kw.includes('verão') || kw.includes('sol') || kw.includes('graus')) {
+    return 'https://images.unsplash.com/photo-1504370805625-d32c54b16100?w=1600&auto=format&fit=crop&q=80'; // Sun radiating hot lens flare
+  }
+  
+  // Specific Economy/Tariffs
+  if (kw.includes('conta') || kw.includes('bandeira') || kw.includes('tarifa') || kw.includes('luz') || kw.includes('aumento') || kw.includes('inflação') || kw.includes('selic') || kw.includes('custo') || kw.includes('preço') || kw.includes('gastos')) {
+    return 'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=1600&auto=format&fit=crop&q=80'; // Clean solar energy roof grid
+  }
+  
+  // Specific Tech / EV / BYD
+  if (kw.includes('byd') || kw.includes('carro') || kw.includes('veículo') || kw.includes('elétrico') || kw.includes('recarga') || kw.includes('hybrid') || kw.includes('híbrido') || kw.includes('wemob')) {
+    return 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=1600&auto=format&fit=crop&q=80'; // Electric vehicle charging station
+  }
+
+  // Fallback by general category
+  switch (category) {
+    case 'weather':
+      return 'https://images.unsplash.com/photo-1509395062183-67c5ad6faff9?w=1600&auto=format&fit=crop&q=80'; // Power grids under dark clouds
+    case 'economy':
+      return 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1600&auto=format&fit=crop&q=80'; // Industrial solar panel installations
+    case 'tech':
+      return 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&auto=format&fit=crop&q=80'; // Connected tech server system
+    case 'general':
+    default:
+      return 'https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=1600&auto=format&fit=crop&q=80'; // Modern premium house illuminated by solar panels
+  }
+};

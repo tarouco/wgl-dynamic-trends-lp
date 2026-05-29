@@ -6,16 +6,31 @@ import Integration from './components/Integration';
 import { mockTrends } from './utils/mockData';
 import { detectCategory } from './utils/themeEngine';
 
+// Parse Netlify-pinned trend if baked in at build time
+const getPinnedTrend = () => {
+  const pinnedJson = import.meta.env.VITE_ACTIVE_TREND;
+  if (pinnedJson && pinnedJson !== 'undefined' && pinnedJson !== 'null') {
+    try {
+      return JSON.parse(pinnedJson);
+    } catch (e) {
+      console.error("Erro ao analisar VITE_ACTIVE_TREND:", e);
+    }
+  }
+  return null;
+};
+
 export default function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [activeTab, setActiveTab] = useState('preview'); // 'preview' | 'integration'
   const [device, setDevice] = useState('desktop'); // 'desktop' | 'mobile' (for admin preview)
   const [trends, setTrends] = useState([]);
-  const [selectedTrend, setSelectedTrend] = useState(null);
+  const [selectedTrend, setSelectedTrend] = useState(getPinnedTrend());
   const [loading, setLoading] = useState(false);
   const [lastSync, setLastSync] = useState(null);
   const [isLive, setIsLive] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [deploying, setDeploying] = useState(false);
+  const [deployResult, setDeployResult] = useState(null);
 
   // Monitor window resize for full-screen responsive view
   useEffect(() => {
@@ -36,7 +51,15 @@ export default function App() {
           category: detectCategory(item.title, item.news?.title || '')
         }));
         setTrends(processed);
-        setSelectedTrend(processed[0]);
+        
+        const pinned = getPinnedTrend();
+        if (pinned) {
+          const matched = processed.find(t => t.title === pinned.title);
+          setSelectedTrend(matched || pinned);
+        } else {
+          setSelectedTrend(processed[0]);
+        }
+        
         setIsLive(true);
         setLastSync(new Date());
       } else {
@@ -49,11 +72,43 @@ export default function App() {
         category: item.category || detectCategory(item.title, item.news?.title || '')
       }));
       setTrends(processedMock);
-      setSelectedTrend(processedMock[0]);
+      
+      const pinned = getPinnedTrend();
+      if (pinned) {
+        const matched = processedMock.find(t => t.title === pinned.title);
+        setSelectedTrend(matched || pinned);
+      } else {
+        setSelectedTrend(processedMock[0]);
+      }
+      
       setIsLive(false);
       setLastSync(new Date());
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleForceDeploy = async () => {
+    if (!selectedTrend) return;
+    setDeploying(true);
+    setDeployResult(null);
+    try {
+      const res = await fetch('/api/trigger-deploy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ trend: selectedTrend })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setDeployResult({ success: true, message: "Deploy iniciado com sucesso! O Netlify está compilando. O site atualizará em ~1 min." });
+      } else {
+        throw new Error(data.error || 'Erro desconhecido');
+      }
+    } catch (err) {
+      console.error("Falha ao forçar deploy:", err);
+      setDeployResult({ success: false, message: `Erro: ${err.message}` });
+    } finally {
+      setDeploying(false);
     }
   };
 
@@ -229,6 +284,9 @@ export default function App() {
           loading={loading}
           lastSync={lastSync}
           isLive={isLive}
+          onForceDeploy={handleForceDeploy}
+          deploying={deploying}
+          deployResult={deployResult}
         />
 
         {/* Right Column: Dynamic Preview / Integration manual */}

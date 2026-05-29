@@ -13,7 +13,10 @@ export default function Dashboard({
   onRefresh, 
   loading,
   lastSync,
-  isLive 
+  isLive,
+  onForceDeploy,
+  deploying,
+  deployResult
 }) {
   const [countdown, setCountdown] = useState(1800); // 30 minutes in seconds
 
@@ -89,22 +92,59 @@ export default function Dashboard({
 
           <button 
             className="btn-primary" 
-            onClick={onRefresh}
-            disabled={loading}
-            style={{ width: '100%', marginTop: '10px' }}
+            onClick={onForceDeploy}
+            disabled={deploying || !selectedTrend}
+            style={{ 
+              width: '100%', 
+              marginTop: '10px',
+              opacity: (!selectedTrend || deploying) ? 0.6 : 1,
+              cursor: (!selectedTrend || deploying) ? 'not-allowed' : 'pointer'
+            }}
           >
-            <RefreshCw size={16} className={loading ? "spin" : ""} style={{ animation: loading ? "spin 1s linear infinite" : "none" }} />
-            Forçar Sincronização
+            <RefreshCw size={16} className={deploying ? "spin" : ""} style={{ animation: deploying ? "spin 1s linear infinite" : "none" }} />
+            {deploying ? "Disparando Build no Netlify..." : "Forçar Sincronização (Deploy)"}
           </button>
+          
+          {deployResult && (
+            <div style={{
+              marginTop: '10px',
+              padding: '10px',
+              borderRadius: '8px',
+              fontSize: '12px',
+              border: '1px solid',
+              backgroundColor: deployResult.success ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)',
+              borderColor: deployResult.success ? '#10b981' : '#ef4444',
+              color: deployResult.success ? '#34d399' : '#f87171'
+            }}>
+              {deployResult.message}
+            </div>
+          )}
         </div>
       </div>
 
       {/* Trends List Card */}
       <div className="glass-panel" style={{ padding: '20px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <h3 className="section-title">
-          <Globe size={18} style={{ color: '#ff7a00' }} />
-          Tendências no Brasil
-        </h3>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+          <h3 className="section-title" style={{ margin: 0 }}>
+            <Globe size={18} style={{ color: '#ff7a00' }} />
+            Tendências no Brasil
+          </h3>
+          <button 
+            onClick={onRefresh} 
+            disabled={loading}
+            title="Recarregar Lista do Google"
+            style={{ 
+              background: 'transparent', 
+              border: 'none', 
+              color: 'var(--text-secondary)', 
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center'
+            }}
+          >
+            <RefreshCw size={14} className={loading ? "spin" : ""} />
+          </button>
+        </div>
         
         <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '16px' }}>
           Selecione uma tendência para ver a landing page adaptar seu copy e design automaticamente.
