@@ -15,6 +15,7 @@ export const generateCopy = (keyword, category, newsSnippet = "") => {
         badge: "CONTINGÊNCIA E SEGURANÇA OPERACIONAL",
         heroTitle: `Sua operação não pode parar por conta de "${cleanKeyword}"`,
         heroSub: `Apagões e oscilações na rede elétrica decorrentes de "${cleanKeyword}" colocam a segurança e a produtividade de empresas em risco. O Grupo WGL oferece soluções completas de locação de geradores de energia (30 a 2500 kVA) com suporte técnico 24/7 e SLA de resposta em até 3 horas.`,
+        miniArticle: `A recente repercussão sobre "${cleanKeyword}" evidencia como fatores externos e climáticos fogem do nosso controle. No cenário empresarial, a falta de energia não é apenas um inconveniente; é sinônimo de perdas severas de produção, falhas de segurança e interrupção de serviços essenciais. A locação de geradores do Grupo WGL protege sua infraestrutura com carenagens super silenciadas de 30 a 2500 kVA, transição em segundos via QTA e monitoramento técnico ativo 24/7. Não permita que imprevistos paralisem sua operação.`,
         ctaText: "Cotar Gerador de Emergência",
         benefitTitle: "Por que alugar geradores com o Grupo WGL?",
         benefits: [
@@ -70,12 +71,13 @@ export const generateCopy = (keyword, category, newsSnippet = "") => {
         badge: "ENGENHARIA E EFICIÊNCIA ENERGÉTICA",
         heroTitle: `Combata os altos custos de energia e "${cleanKeyword}"`,
         heroSub: `Em tempos de "${cleanKeyword}" e reajustes tarifários severos, a engenharia elétrica inteligente é o caminho para proteger o caixa da sua empresa. O Grupo WGL projeta, instala e realiza a manutenção de subestações de média/alta tensão e assessoria para migração ao Mercado Livre de Energia.`,
+        miniArticle: `Os debates em torno de "${cleanKeyword}" refletem a urgência em otimizar custos e defender as margens financeiras das empresas frente à inflação energética. A eletricidade representa um dos maiores custos fixos industriais e comerciais. Com a engenharia elétrica do Grupo WGL, sua empresa deixa de ser refém das tarifas tradicionais: projetamos subestações próprias de média/alta tensão e assessoramos a migração completa e segura para o Mercado Livre de Energia, gerando economias sustentáveis de até 35%.`,
         ctaText: "Solicitar Diagnóstico Tarifário",
         benefitTitle: "Como a Engenharia WGL gera eficiência financeira?",
         benefits: [
           {
             title: "Migração para o Mercado Livre (ACL)",
-            desc: "Assessoramos sua empresa na compra direta de energia de fontes limpas e baratas, reduzindo custos em até 35%.",
+            desc: "Assessoramos sua empresa na compra direta de energia de fontes limpas e baratas, aumentando a previsibilidade do custo operacional em até 35%.",
             icon: "TrendingDown"
           },
           {
@@ -125,6 +127,7 @@ export const generateCopy = (keyword, category, newsSnippet = "") => {
         badge: "INFRAESTRUTURA DE OPERAÇÃO CRÍTICA",
         heroTitle: `Energia de alta disponibilidade para suportar "${cleanKeyword}"`,
         heroSub: `A era da automação e "${cleanKeyword}" exige infraestrutura de energia com tolerância zero a falhas. O Grupo WGL, através da WGL Soluções by RAC, entrega comissionamento elétrico de ponta, manutenção e adequação técnica de energia para indústrias e data centers.`,
+        miniArticle: `A aceleração tecnológica impulsionada por "${cleanKeyword}" demonstra que a modernidade exige estabilidade absoluta. Equipamentos de inteligência artificial, processamento de dados e automação industrial possuem tolerância zero para variações ou quedas na rede de energia. Através da WGL Soluções by RAC, estruturamos a base física que sustenta sua inovação: comissionamento rigoroso de subestações, manutenção preventiva com termografia infravermelha e laudos de adequação às normas NR-10 e NR-12.`,
         ctaText: "Garantir Alta Disponibilidade",
         benefitTitle: "Segurança técnica e conformidade regulatória",
         benefits: [
@@ -181,6 +184,7 @@ export const generateCopy = (keyword, category, newsSnippet = "") => {
         badge: "SOLUÇÕES INTEGRADAS PARA O AGRONEGÓCIO",
         heroTitle: `Garantia de produtividade no campo mesmo sob "${cleanKeyword}"`,
         heroSub: `Diante de oscilações provocadas por "${cleanKeyword}" ou desafios de estiagem no campo, o agronegócio moderno exige engenharia integrada de água e energia. O Grupo WGL, por meio da WGL Agro by H2O, desenvolve projetos rurais inteligentes.`,
+        miniArticle: `A atenção voltada a "${cleanKeyword}" ressalta a importância de manter processos eficientes e altamente produtivos. No campo, a constância é vital: a falta de água ou energia pode comprometer safras inteiras em poucos dias. O Grupo WGL, através da WGL Agro by H2O, integra energia solar rural e engenharia de irrigação por pivô central Valley® para que seu agronegócio produza com o máximo rendimento, independente das intempéries ou flutuações da rede concessionária.`,
         ctaText: "Falar com Engenheiro do Agro",
         benefitTitle: "Maximizando a produção e reduzindo riscos",
         benefits: [

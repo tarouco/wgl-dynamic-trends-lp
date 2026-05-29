@@ -234,6 +234,32 @@ export default function PreviewLP({ trend, device }) {
           {copy.heroSub}
         </p>
 
+        {copy.miniArticle && (
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.02)',
+            borderLeft: `4px solid var(--primary)`,
+            borderRight: '1px solid rgba(255, 255, 255, 0.05)',
+            borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+            padding: '20px 25px',
+            borderRadius: '8px',
+            maxWidth: '800px',
+            textAlign: 'left',
+            lineHeight: 1.6,
+            fontSize: device === 'mobile' ? '13px' : '15px',
+            color: '#cbd5e1',
+            zIndex: 2,
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+            backdropFilter: 'blur(12px)',
+            marginTop: '15px'
+          }}>
+            <strong style={{ display: 'block', color: 'white', marginBottom: '8px', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              Conexão com {copy.division}:
+            </strong>
+            {copy.miniArticle}
+          </div>
+        )}
+
         {/* Dynamic CTA button with pulsing glow */}
         <div style={{ zIndex: 2, marginTop: '10px' }}>
           <a 
